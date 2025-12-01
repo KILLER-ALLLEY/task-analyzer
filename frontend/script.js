@@ -1,4 +1,4 @@
-const API_BASE = "http://127.0.0.1:8000/api/tasks";
+const API_BASE = "https://task-analyzer-8ali.onrender.com/api/tasks";
 
 const els = {
   form: document.getElementById("task-form"),
