@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smart Task Analyzer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: false });</script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Smart Task Analyzer</h1>
+      <p class="tagline">Paste tasks, pick a strategy, analyze priorities</p>
+    </header>
+
+    <section class="panel" id="input-panel">
+      <h2>Single task input</h2>
+      <form id="task-form">
+        <div class="row">
+          <label>Title
+            <input id="title" type="text" placeholder="Fix login bug" />
+          </label>
+          <label>Due date
+            <input id="due_date" type="date" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Estimated hours
+            <input id="estimated_hours" type="number" min="0" step="0.5" placeholder="3" />
+          </label>
+
+          <label>Importance (1-10)
+            <input id="importance" type="number" min="1" max="10" value="5" />
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Dependencies (comma separated ids)
+            <input id="dependencies" type="text" placeholder="2,5" />
+          </label>
+
+          <label>ID (optional)
+            <input id="task_id" type="number" min="1" placeholder="1" />
+          </label>
+        </div>
+
+        <div class="row actions">
+          <button id="add-task-btn" type="button">Add to list</button>
+          <button id="clear-list-btn" type="button">Clear list</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="bulk-panel">
+      <h2>Bulk JSON input</h2>
+      <p class="hint">Paste a JSON array of tasks or use the task list above</p>
+      <textarea id="bulk-json" placeholder='[{"title":"Fix","due_date":"2025-11-30","estimated_hours":3,"importance":8,"dependencies":[]} ]'></textarea>
+
+      <div class="row">
+        <label>Strategy
+          <select id="strategy">
+            <option value="smart_balance">Smart Balance</option>
+            <option value="fastest_wins">Fastest Wins</option>
+            <option value="high_impact">High Impact</option>
+            <option value="deadline_driven">Deadline Driven</option>
+          </select>
+        </label>
+
+        <div class="small-actions">
+          <button id="analyze-btn" type="button">Analyze Tasks</button>
+          <button id="suggest-btn" type="button">Suggest Top 3</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="list-panel">
+      <h2>Task list (local)</h2>
+      <p class="hint">Tasks you added manually show here. They will be sent if Bulk JSON is empty.</p>
+      <ul id="task-list"></ul>
+    </section>
+
+    <section class="panel" id="output-panel">
+      <h2>Results</h2>
+      <div id="status" class="status"></div>
+      <div id="results"></div>
+
+      <div id="graph-container" style="margin-top:20px"></div>
+    </section>
+
+    <footer>
+      <small>Frontend testing note: run a static server to avoid CORS, for example:</small>
+      <pre>python -m http.server 5500</pre>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
